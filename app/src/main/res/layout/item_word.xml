@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="@dimen/grid_item_padding_size">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="@dimen/grid_item_padding_size">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvVocab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:padding="@dimen/grid_item_padding_size"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                tools:text="abide by" />
+
+            <TextView
+                android:id="@+id/tvVocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@id/tvVocab"
+                android:layout_toRightOf="@id/tvVocab"
+                android:padding="@dimen/grid_item_padding_size"
+                android:textColor="@color/accent"
+                tools:text="/ờ bai bai/" />
+
+            <TextView
+                android:id="@+id/tvExplanation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvVocab"
+                android:paddingBottom="@dimen/grid_item_padding_size"
+                android:paddingLeft="@dimen/grid_item_padding_size"
+                android:paddingRight="@dimen/grid_item_padding_size"
+                android:textColor="@color/text_green"
+                tools:text="to accept and act according to a law, an agreement" />
+
+            <TextView
+                android:id="@+id/tvTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvExplanation"
+                android:paddingBottom="@dimen/grid_item_padding_size"
+                android:paddingLeft="@dimen/grid_item_padding_size"
+                android:paddingRight="@dimen/grid_item_padding_size"
+                android:textColor="@color/secondary_text"
+                tools:text="(v): tôn trọng, tuân theo, giữ lời" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_item_padding_size"
+                android:src="@drawable/icon_fav_border" />
+
+            <ImageView
+                android:id="@+id/imgSound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgFav"
+                android:layout_margin="@dimen/grid_item_padding_size"
+                android:src="@drawable/icon_sound" />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="one.marshangeriksen.loloaldrin.myapplication.Favorite.FavoriteFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcvFavWord"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_item_padding_size"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <RelativeLayout
+        android:id="@+id/noFavFound"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/img_fav"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/imgFav"/>
+        <TextView
+            android:layout_below="@+id/imgFav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="@string/no_favorite_word_found"/>
+    </RelativeLayout>
+</FrameLayout>

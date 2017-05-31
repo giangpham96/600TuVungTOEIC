@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">600TuVungTOEIC</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search a word</string>
+    <string name="favorite">Favorite</string>
+    <string name="no_favorite_word_found">No favorite word found!</string>
+</resources>
