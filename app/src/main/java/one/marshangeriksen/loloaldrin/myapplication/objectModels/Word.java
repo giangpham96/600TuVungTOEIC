@@ -1,10 +1,9 @@
-package one.marshangeriksen.loloaldrin.myapplication.Models;
+package one.marshangeriksen.loloaldrin.myapplication.objectModels;
 
-/**
- * Created by conme on 30-May-17.
- */
+import java.io.Serializable;
 
-public class Word {
+
+public class Word implements Serializable {
     private int id;
     private int topic;
     private int idTemp;

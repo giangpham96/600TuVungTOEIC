@@ -1,4 +1,4 @@
-package one.marshangeriksen.loloaldrin.myapplication.Favorite;
+package one.marshangeriksen.loloaldrin.myapplication.favorite;
 
 
 import android.content.res.AssetFileDescriptor;
@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,21 +19,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import one.marshangeriksen.loloaldrin.myapplication.Models.Word;
 import one.marshangeriksen.loloaldrin.myapplication.R;
+import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
 
 
 public class FavoriteFragment extends Fragment {
 
-    private View view;
-    private FavoriteController controller;
     @BindView(R.id.rcvFavWord)
     public RecyclerView rcvFavWord;
     @BindView(R.id.noFavFound)
     public View noFav;
+    private View view;
+    private FavoriteModel model;
     private List<Word> favoriteWordList;
     private FavoriteAdapter adapter;
-
     public FavoriteFragment() {
         // Required empty public constructor
     }
@@ -52,7 +52,7 @@ public class FavoriteFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_favorite, container, false);
         ButterKnife.bind(this, view);
-        controller = new FavoriteController(getActivity());
+        model = new FavoriteModel(getActivity());
         favoriteWordList = new ArrayList<>();
         adapter = new FavoriteAdapter(favoriteWordList);
         rcvFavWord.setAdapter(adapter);
@@ -63,16 +63,23 @@ public class FavoriteFragment extends Fragment {
     public void onResume() {
         super.onResume();
         favoriteWordList.clear();
-        favoriteWordList.addAll(controller.getAllFavoriteWords());
+        favoriteWordList.addAll(model.getAllFavoriteWords());
         adapter.notifyDataSetChanged();
         processNotifyNoFav();
     }
 
     private void processNotifyNoFav() {
-        if(favoriteWordList.size()==0)
+        if (favoriteWordList.size() == 0) {
             noFav.setVisibility(View.VISIBLE);
-        else
+            noFav.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fav_check_appear));
+        } else
             noFav.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        model.close();
     }
 
     class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
@@ -101,7 +108,7 @@ public class FavoriteFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     word.setFavorite(false);
-                    controller.updateFavorite(word);
+                    model.updateFavorite(word);
                     words.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
                     processNotifyNoFav();
@@ -122,7 +129,6 @@ public class FavoriteFragment extends Fragment {
                     }
                 }
             });
-
         }
 
         @Override

@@ -1,10 +1,7 @@
-package one.marshangeriksen.loloaldrin.myapplication.Models;
+package one.marshangeriksen.loloaldrin.myapplication.objectModels;
 
 import java.io.Serializable;
 
-/**
- * Created by conme on 30-May-17.
- */
 
 public class Topic implements Serializable {
     private String name;

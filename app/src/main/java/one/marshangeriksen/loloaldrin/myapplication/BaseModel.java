@@ -5,22 +5,19 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import one.marshangeriksen.loloaldrin.myapplication.Models.Word;
+import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
 
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_FAVORITE;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_ID;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TABLE_WORD;
 
-/**
- * Created by conme on 31-May-17.
- */
 
-public class BaseController extends SQLiteOpenHelper {
+public class BaseModel extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "toeic600.db";
     protected SQLiteDatabase db;
 
-    public BaseController(Context context) {
+    public BaseModel(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = this.getReadableDatabase();
     }

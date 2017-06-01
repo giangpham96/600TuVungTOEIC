@@ -1,0 +1,123 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="one.marshangeriksen.loloaldrin.myapplication.word.WordDetailFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/normal_padding_size">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvVocab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:layout_toLeftOf="@+id/btnSound"
+                android:layout_toStartOf="@+id/btnSound"
+                android:textColor="@color/primary"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:text="giangp" />
+
+            <TextView
+                android:id="@+id/tvVocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvVocab"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:layout_marginTop="@dimen/grid_item_padding_size"
+                android:layout_toLeftOf="@id/btnSound"
+                android:layout_toStartOf="@+id/btnSound"
+                android:textColor="@color/accent"
+                android:textSize="20sp"
+                tools:text="/giang pê/" />
+
+            <TextView
+                android:id="@+id/tvExplanation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvVocal"
+                android:layout_marginBottom="@dimen/normal_padding_size"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:layout_marginTop="@dimen/normal_padding_size"
+                android:textColor="@color/text_green"
+                android:textSize="20sp"
+                tools:text="Giang H. Phạm\nABCDEFG ble bla" />
+
+            <TextView
+                android:id="@+id/tvMeaning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvExplanation"
+                android:layout_marginBottom="@dimen/normal_padding_size"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:textColor="@color/primary_dark"
+                android:textSize="20sp"
+                tools:text="Giang H. Phạm" />
+
+            <TextView
+                android:id="@+id/tvExampleLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvMeaning"
+                android:layout_marginBottom="@dimen/normal_padding_size"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                tools:text="@string/example" />
+
+            <TextView
+                android:id="@+id/tvExample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvExampleLabel"
+                android:layout_marginBottom="@dimen/normal_padding_size"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:textColor="@color/primary_text"
+                android:textSize="20sp"
+                tools:text="Giang H. Phạm is a newbie in Android developing field. He is trying his best." />
+
+            <TextView
+                android:id="@+id/tvExampleTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvExample"
+                android:layout_marginBottom="@dimen/normal_padding_size"
+                android:layout_marginEnd="@dimen/normal_padding_size"
+                android:layout_marginRight="@dimen/normal_padding_size"
+                android:textColor="@color/divider"
+                android:textStyle="italic"
+                tools:text="Giang H. Phạm mới vào nghề lập trình Android. Anh ấy đang cố gắng vãi nồi." />
+
+            <ImageButton
+                android:id="@+id/btnFav"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/icon_fav_border" />
+
+            <ImageButton
+                android:id="@+id/btnSound"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_toLeftOf="@id/btnFav"
+                android:layout_toStartOf="@+id/btnFav"
+                android:background="@drawable/icon_sound" />
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

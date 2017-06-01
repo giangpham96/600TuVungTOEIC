@@ -1,4 +1,4 @@
-package one.marshangeriksen.loloaldrin.myapplication.Topic;
+package one.marshangeriksen.loloaldrin.myapplication.topic;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,15 +14,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import one.marshangeriksen.loloaldrin.myapplication.R;
 import one.marshangeriksen.loloaldrin.myapplication.SquareImageView;
-import one.marshangeriksen.loloaldrin.myapplication.Models.Topic;
-import one.marshangeriksen.loloaldrin.myapplication.Models.Word;
 import one.marshangeriksen.loloaldrin.myapplication.WordAdapter;
+import one.marshangeriksen.loloaldrin.myapplication.objectModels.Topic;
+import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
 
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_BUNDLE;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_ID_BUNDLE;
@@ -38,7 +39,8 @@ public class TopicActivity extends AppCompatActivity {
     public TextView tvTopic;
     private List<Word> wordList;
     private WordAdapter adapter;
-    private TopicController controller;
+    private TopicModel model;
+    private int topicId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +74,20 @@ public class TopicActivity extends AppCompatActivity {
                         imgThumbnail.setImageDrawable(drawable);
                     }
                 });
-        controller = new TopicController(this);
-        int topicId = getIntent().getIntExtra(TOPIC_ID_BUNDLE, 0);
-        wordList = controller.getAllWordsBaseOnTopic(topicId);
-        adapter = new WordAdapter(this,wordList,controller);
+        model = new TopicModel(this);
+        topicId = getIntent().getIntExtra(TOPIC_ID_BUNDLE, 0);
+        wordList = new ArrayList<>();
+        adapter = new WordAdapter(this, wordList, model);
         rcvWord.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        wordList.clear();
+        wordList.addAll(model.getAllWordsBaseOnTopic(topicId));
+        adapter.setWords(wordList);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,6 +103,6 @@ public class TopicActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        controller.close();
+        model.close();
     }
 }

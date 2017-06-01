@@ -1,18 +1,13 @@
-package one.marshangeriksen.loloaldrin.myapplication;
+package one.marshangeriksen.loloaldrin.myapplication.main;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,18 +16,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import one.marshangeriksen.loloaldrin.myapplication.Favorite.FavoriteActivity;
-import one.marshangeriksen.loloaldrin.myapplication.Dictionary.DictionaryFragment;
-import one.marshangeriksen.loloaldrin.myapplication.Test.TestFragment;
-import one.marshangeriksen.loloaldrin.myapplication.TopicList.TopicFragment;
+import one.marshangeriksen.loloaldrin.myapplication.R;
+import one.marshangeriksen.loloaldrin.myapplication.ViewPagerAdapter;
+import one.marshangeriksen.loloaldrin.myapplication.favorite.FavoriteActivity;
+import one.marshangeriksen.loloaldrin.myapplication.main.dictionary.DictionaryFragment;
+import one.marshangeriksen.loloaldrin.myapplication.main.test.TestFragment;
+import one.marshangeriksen.loloaldrin.myapplication.main.topicList.TopicFragment;
 
-public class MainActivity extends AppCompatActivity implements
-        SearchView.OnQueryTextListener,SearchView.OnSuggestionListener{
+public class MainActivity extends AppCompatActivity {
+    private static final String DB_NAME = "toeic600.db";
+    private static final String DB_PATH_SUFFIX = "/databases/";
     @BindView(R.id.tabLayoutMain)
     public TabLayout tabLayout;
     @BindView(R.id.viewpagerMain)
@@ -42,18 +38,12 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.fabFav)
     public FloatingActionButton fabFav;
 
-
-    private static final String DB_NAME = "toeic600.db";
-    private static final String DB_PATH_SUFFIX = "/databases/";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
         processCopyDatabase();
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -65,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public void onPageSelected(int position) {
+                invalidateOptionsMenu();
                 if(position==0)
                     fabFav.show();
                 else
@@ -87,13 +78,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem mnuSearch = menu.findItem(R.id.mnu_search);
-        SearchView searchView = (SearchView) mnuSearch.getActionView();
-        searchView.setQueryHint(getString(R.string.search));
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnSuggestionListener(this);
-        searchView.setIconifiedByDefault(false);
+        if (viewPager.getCurrentItem() != 2) {
+            menu.clear();
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -142,54 +129,5 @@ public class MainActivity extends AppCompatActivity implements
         adapter.addFrag(TestFragment.newInstance(), "Test");
         adapter.addFrag(DictionaryFragment.newInstance(), "Dictionary");
         viewPager.setAdapter(adapter);
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-
-    @Override
-    public boolean onSuggestionSelect(int position) {
-        return false;
-    }
-
-    @Override
-    public boolean onSuggestionClick(int position) {
-        return false;
-    }
-
-    private static class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-
-        void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
     }
 }

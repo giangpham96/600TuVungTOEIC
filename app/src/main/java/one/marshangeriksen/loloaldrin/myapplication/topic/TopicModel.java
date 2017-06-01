@@ -1,4 +1,4 @@
-package one.marshangeriksen.loloaldrin.myapplication.Topic;
+package one.marshangeriksen.loloaldrin.myapplication.topic;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,8 +6,8 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-import one.marshangeriksen.loloaldrin.myapplication.BaseController;
-import one.marshangeriksen.loloaldrin.myapplication.Models.Word;
+import one.marshangeriksen.loloaldrin.myapplication.BaseModel;
+import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
 
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_EXAMPLE;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_EXAMPLE_TRANS;
@@ -21,13 +21,10 @@ import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_VOCAB;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_VOCAL;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TABLE_WORD;
 
-/**
- * Created by conme on 30-May-17.
- */
 
-class TopicController extends BaseController {
+class TopicModel extends BaseModel {
 
-    TopicController(Context context) {
+    TopicModel(Context context) {
         super(context);
     }
     List<Word> getAllWordsBaseOnTopic(int topic) {

@@ -1,4 +1,4 @@
-package one.marshangeriksen.loloaldrin.myapplication.Favorite;
+package one.marshangeriksen.loloaldrin.myapplication.favorite;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -4,40 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="one.marshangeriksen.loloaldrin.myapplication.main.MainActivity">
+    tools:context="one.marshangeriksen.loloaldrin.myapplication.word.WordActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarMain"
+            android:id="@+id/toolbarWord"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name_display"
-            app:titleTextColor="@color/white" />
+            android:layout_height="?attr/actionBarSize" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayoutMain"
+            android:id="@+id/tabLayoutWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewpagerMain"
+        android:id="@+id/viewpagerWord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabFav"
+        android:id="@+id/fabStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/normal_padding_size"
-        android:src="@drawable/icon_fav_border"
+        android:src="@drawable/icon_record"
         android:tint="@color/white"
+        app:backgroundTint="@color/text_green"
         app:fabSize="normal"
-        app:layout_anchor="@id/viewpagerMain"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchor="@id/viewpagerWord"
+        app:layout_anchorGravity="bottom|center" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_padding_size"
+        android:src="@drawable/icon_stop"
+        android:tint="@color/white"
+        app:backgroundTint="#ed0008"
+        app:fabSize="normal"
+        app:layout_anchor="@id/viewpagerWord"
+        app:layout_anchorGravity="bottom|center" />
 </android.support.design.widget.CoordinatorLayout>
