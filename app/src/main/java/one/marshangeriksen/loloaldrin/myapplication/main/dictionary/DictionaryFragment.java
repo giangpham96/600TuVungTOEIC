@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import one.marshangeriksen.loloaldrin.myapplication.R;
 import one.marshangeriksen.loloaldrin.myapplication.WordAdapter;
+import one.marshangeriksen.loloaldrin.myapplication.main.MainActivity;
 import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
 
 
@@ -76,12 +77,6 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
-        final MenuItem mnuSearch = menu.findItem(R.id.mnu_search);
-        searchView = (SearchView) mnuSearch.getActionView();
-        searchView.setQueryHint(getString(R.string.search));
-        searchView.setOnQueryTextListener(this);
-        searchView.setIconifiedByDefault(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -93,6 +88,7 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) {
             searchView.setQuery("", false);
             searchView.clearFocus();

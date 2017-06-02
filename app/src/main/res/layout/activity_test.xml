@@ -17,104 +17,66 @@
             android:layout_height="?attr/actionBarSize"
             app:title="Test Mode"
             app:titleTextColor="@color/white" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayoutTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable" />
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.CardView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/normal_padding_size"
-        app:cardCornerRadius="12dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpagerTest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/normal_padding_size">
+            android:layout_above="@+id/buttonPanel"
+            android:layout_alignParentTop="true"
+            android:padding="@dimen/normal_padding_size" />
 
-            <TextView
-                android:id="@+id/tvQuestion"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/buttonPanel"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPrev"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_question"
-                android:drawablePadding="@dimen/grid_item_padding_size"
-                android:drawableStart="@drawable/icon_question"
-                android:padding="@dimen/grid_item_padding_size"
-                android:textColor="@color/primary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="giangp" />
+                android:layout_weight="1"
+                android:text="@string/previous"
+                android:textAllCaps="false"
+                android:textColor="@color/primary" />
 
-            <RadioGroup
-                android:id="@+id/radioGroupAnswer"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/buttonPanel"
-                android:layout_below="@+id/tvQuestion"
-                android:gravity="center_vertical">
+                android:layout_weight="1"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:theme="@style/ButtonSubmit" />
 
-                <RadioButton
-                    android:id="@+id/rb1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Giang Béo" />
-
-                <RadioButton
-                    android:id="@+id/rb2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Giang Béo" />
-
-                <RadioButton
-                    android:id="@+id/rb3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Giang Béo" />
-
-                <RadioButton
-                    android:id="@+id/rb4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Giang Béo" />
-            </RadioGroup>
-
-            <LinearLayout
-                android:id="@+id/buttonPanel"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btnNext"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnPrev"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/previous"
-                    android:textAllCaps="false"
-                    android:textColor="@color/primary" />
-
-                <Button
-                    android:id="@+id/btnSubmit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/submit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:theme="@style/ButtonSubmit" />
-
-                <Button
-                    android:id="@+id/btnNext"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/next"
-                    android:textAllCaps="false"
-                    android:textColor="@color/primary" />
-            </LinearLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_weight="1"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/primary" />
+        </LinearLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

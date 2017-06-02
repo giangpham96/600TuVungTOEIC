@@ -2,8 +2,11 @@ package one.marshangeriksen.loloaldrin.myapplication.main.test;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,6 +133,22 @@ public class TestFragment extends Fragment {
         public void onBindViewHolder(final TopicAdapter.TopicViewHolder holder, int position) {
             Topic topic = topics.get(position);
             holder.bind(topic);
+            int resID = getResources().getIdentifier("i" + (position + 1), "drawable",
+                    getActivity().getPackageName());
+            Glide.with(TestFragment.this)
+                    .load(resID)
+                    .asBitmap()
+                    .placeholder(R.drawable.img_topic)
+                    .error(R.drawable.img_topic)
+                    .into(new BitmapImageViewTarget(holder.imgThumbnail) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory
+                                    .create(getActivity().getResources(), resource);
+                            drawable.setCircular(true);
+                            holder.imgThumbnail.setImageDrawable(drawable);
+                        }
+                    });
         }
 
         @Override
@@ -177,9 +197,7 @@ public class TestFragment extends Fragment {
 
             public void bind(final Topic topic) {
                 tvTopic.setText(topic.getName());
-                Glide.with(TestFragment.this)
-                        .load(R.drawable.img_topic)
-                        .into(imgThumbnail);
+
                 container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

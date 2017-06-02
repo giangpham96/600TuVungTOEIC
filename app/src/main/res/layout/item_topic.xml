@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="@dimen/grid_item_padding_size"
-    android:id="@+id/item">
+    android:padding="@dimen/grid_item_padding_size">
 
     <one.marshangeriksen.loloaldrin.myapplication.SquareImageView
         android:id="@+id/imgTopic"
@@ -18,15 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:maxLines="1"
-        android:singleLine="true"
+        android:background="@drawable/tv_topic_bg"
         android:ellipsize="marquee"
-        android:marqueeRepeatLimit ="marquee_forever"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:scrollHorizontally="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxLines="1"
         android:padding="@dimen/grid_item_padding_size"
-        android:background="#bbFF4081"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
         android:textColor="@color/white"
         tools:text="abc"/>
 </FrameLayout>

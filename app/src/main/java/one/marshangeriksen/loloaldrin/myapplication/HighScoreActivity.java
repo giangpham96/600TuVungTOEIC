@@ -1,5 +1,6 @@
 package one.marshangeriksen.loloaldrin.myapplication;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import one.marshangeriksen.loloaldrin.myapplication.objectModels.HighScore;
 
 public class HighScoreActivity extends AppCompatActivity {
@@ -42,6 +45,33 @@ public class HighScoreActivity extends AppCompatActivity {
         rcvHighScore.setAdapter(adapter);
     }
 
+    @OnClick(R.id.btnReset)
+    void resetHighScore() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_confirm_submit);
+        dialog.setCancelable(false);
+
+        ((TextView) dialog.findViewById(R.id.tv_title)).setText(R.string.reset_high_score);
+        ((TextView) dialog.findViewById(R.id.tv_mess)).setText(R.string.confirm_reset);
+        dialog.findViewById(R.id.btn_yes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                baseModel.resetHighScore();
+                highScores.clear();
+                highScores.addAll(baseModel.getHighScoreList());
+                adapter.notifyItemRangeChanged(0, highScores.size());
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.btn_no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -50,6 +80,12 @@ public class HighScoreActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        baseModel.close();
     }
 
     class HighScoreAdapter extends RecyclerView.Adapter<HighScoreAdapter.FavoriteViewHolder> {
@@ -93,7 +129,7 @@ public class HighScoreActivity extends AppCompatActivity {
             public void bind(HighScore highScore) {
                 tvNo.setText(highScores.indexOf(highScore) + 1 + "");
                 tvName.setText(highScore.getName_highscore());
-                tvScore.setText(highScore.getPassnumber_highscore() + getString(R.string.points));
+                tvScore.setText(highScore.getPassnumber_highscore() + " " + getString(R.string.points));
             }
         }
     }

@@ -77,4 +77,13 @@ public class BaseModel extends SQLiteOpenHelper {
         if (db != null && db.isOpen())
             db.close();
     }
+
+    int resetHighScore() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_PASS, 0);
+        values.put(KEY_NAME, "No name");
+        // updating rows
+        return db.update(TABLE_HIGH_SCORE, values, null, null);
+    }
 }

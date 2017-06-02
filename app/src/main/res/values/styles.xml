@@ -12,4 +12,9 @@
         <item name="colorControlHighlight">@color/primary_dark</item>
         <item name="colorButtonNormal">@color/primary</item>
     </style>
+
+    <style name="ButtonReset" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#d20400</item>
+        <item name="colorButtonNormal">#ed0008</item>
+    </style>
 </resources>

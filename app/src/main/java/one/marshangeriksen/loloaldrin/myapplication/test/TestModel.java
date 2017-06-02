@@ -32,9 +32,6 @@ import static one.marshangeriksen.loloaldrin.myapplication.Constant.KEY_VOCAL;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TABLE_HIGH_SCORE;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TABLE_WORD;
 
-/**
- * Created by conme on 01-Jun-17.
- */
 
 class TestModel extends BaseModel {
     private ArrayList<Word> words;
@@ -80,6 +77,8 @@ class TestModel extends BaseModel {
         }
         c.close();
         Collections.shuffle(words);
+        if (words.size() > 20)
+            words.subList(20, words.size()).clear();
         for (int i = 0; i < words.size(); i++) {
             Question question;
             if (i > 0 && i <= words.size() / 3)
@@ -91,6 +90,7 @@ class TestModel extends BaseModel {
             questions.add(question);
             Log.e("question " + i, question.toString());
         }
+        Collections.shuffle(questions);
         return questions;
     }
 

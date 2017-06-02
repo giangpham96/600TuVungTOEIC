@@ -6,8 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import java.io.OutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import one.marshangeriksen.loloaldrin.myapplication.HighScoreActivity;
 import one.marshangeriksen.loloaldrin.myapplication.R;
 import one.marshangeriksen.loloaldrin.myapplication.ViewPagerAdapter;
 import one.marshangeriksen.loloaldrin.myapplication.favorite.FavoriteActivity;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar toolbar;
     @BindView(R.id.fabFav)
     public FloatingActionButton fabFav;
+    public SearchView searchView;
+    private DictionaryFragment dictionaryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +60,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                invalidateOptionsMenu();
-                if(position==0)
+                if (position == 0) {
                     fabFav.show();
-                else
+                } else {
                     fabFav.hide();
+                }
+                if (searchView != null)
+                    searchView.setQuery("", false);
+                invalidateOptionsMenu();
             }
 
             @Override
@@ -78,8 +86,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (viewPager.getCurrentItem() != 2) {
-            menu.clear();
+        switch (viewPager.getCurrentItem()) {
+            case 2:
+                getMenuInflater().inflate(R.menu.search_menu, menu);
+                final MenuItem mnuSearch = menu.findItem(R.id.mnu_search);
+                searchView = (SearchView) mnuSearch.getActionView();
+                searchView.setQueryHint(getString(R.string.search));
+                searchView.setIconifiedByDefault(false);
+                searchView.setOnQueryTextListener(dictionaryFragment);
+                break;
+            case 1:
+                getMenuInflater().inflate(R.menu.high_score_menu, menu);
+                break;
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -89,11 +107,21 @@ public class MainActivity extends AppCompatActivity {
         if (!dbFile.exists()) {
             try {
                 copyDataBaseFromAsset();
-                Toast.makeText(this, "Copying success from Assets folder", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mnu_high:
+                Intent intent = new Intent(this, HighScoreActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void copyDataBaseFromAsset() {
@@ -125,9 +153,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(TopicFragment.newInstance(), "Topic");
-        adapter.addFrag(TestFragment.newInstance(), "Test");
-        adapter.addFrag(DictionaryFragment.newInstance(), "Dictionary");
+        adapter.addFrag(TopicFragment.newInstance(), getString(R.string.topic));
+        adapter.addFrag(TestFragment.newInstance(), getString(R.string.test));
+        dictionaryFragment = DictionaryFragment.newInstance();
+        adapter.addFrag(dictionaryFragment, getString(R.string.dictionary));
         viewPager.setAdapter(adapter);
     }
 }

@@ -21,7 +21,9 @@
             android:id="@+id/tvTopic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/normal_padding_size"
+            android:paddingRight="@dimen/normal_padding_size" />
 
         <CheckBox
             android:id="@+id/checkbox"

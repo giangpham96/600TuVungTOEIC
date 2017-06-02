@@ -3,8 +3,10 @@ package one.marshangeriksen.loloaldrin.myapplication.test;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseIntArray;
@@ -12,8 +14,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,28 +24,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import one.marshangeriksen.loloaldrin.myapplication.HighScoreActivity;
 import one.marshangeriksen.loloaldrin.myapplication.R;
+import one.marshangeriksen.loloaldrin.myapplication.ViewPagerAdapter;
 import one.marshangeriksen.loloaldrin.myapplication.objectModels.Question;
 
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPICS;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements OnSelectAnswer {
 
-    @BindView(R.id.tvQuestion)
-    TextView tvQuestion;
-    @BindView(R.id.radioGroupAnswer)
-    RadioGroup radioGroupAnswer;
-    @BindView(R.id.rb1)
-    RadioButton rb1;
-    @BindView(R.id.rb2)
-    RadioButton rb2;
-    @BindView(R.id.rb3)
-    RadioButton rb3;
-    @BindView(R.id.rb4)
-    RadioButton rb4;
+    @BindView(R.id.tabLayoutTest)
+    public TabLayout tabLayout;
+    @BindView(R.id.viewpagerTest)
+    public ViewPager viewPager;
+    @BindView(R.id.toolbarTest)
+    public Toolbar toolbar;
     TestModel model;
     List<Question> questions;
     SparseIntArray answers;
-    int currentPosition = 0;
 
     @Override
     protected void onDestroy() {
@@ -65,44 +59,29 @@ public class TestActivity extends AppCompatActivity {
         for (int i = 0; i < questions.size(); i++) {
             answers.put(i, 4);
         }
-        radioGroupAnswer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (group.getCheckedRadioButtonId()) {
-                    case R.id.rb1:
-                        answers.put(currentPosition, 0);
-                        break;
-                    case R.id.rb2:
-                        answers.put(currentPosition, 1);
-                        break;
-                    case R.id.rb3:
-                        answers.put(currentPosition, 2);
-                        break;
-                    case R.id.rb4:
-                        answers.put(currentPosition, 3);
-                        break;
-                }
-            }
-        });
-        initQuestion();
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        for (int i = 0; i < questions.size(); i++)
+            adapter.addFrag(QuestionFragment.newInstance(i, questions.get(i)),
+                    getString(R.string.question) + " " + (i + 1));
+        viewPager.setAdapter(adapter);
     }
 
     @OnClick(R.id.btnNext)
     void btnNextClick() {
-        if (currentPosition != questions.size() - 1)
-            currentPosition += 1;
-        else
-            currentPosition = 0;
-        initQuestion();
+        if (viewPager.getCurrentItem() < questions.size())
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
     }
 
     @OnClick(R.id.btnPrev)
     void btnPrevClick() {
-        if (currentPosition != 0)
-            currentPosition -= 1;
-        else
-            currentPosition = questions.size() - 1;
-        initQuestion();
+        if (viewPager.getCurrentItem() > 0)
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
     }
 
     @OnClick(R.id.btnSubmit)
@@ -234,38 +213,39 @@ public class TestActivity extends AppCompatActivity {
         return counter;
     }
 
-    private void initQuestion() {
-        Question question = questions.get(currentPosition);
-        switch (question.getType()) {
-            case Question.EXPLANATION_QUESTION:
-            case Question.MEANING_QUESTION:
-                tvQuestion.setText(question.getWord().getVocabulary());
-                break;
-            case Question.VOCAB_QUESTION:
-                tvQuestion.setText(question.getWord().getTranslation());
-                break;
-        }
-        rb1.setText(question.getAnswer().get(0));
-        rb2.setText(question.getAnswer().get(1));
-        rb3.setText(question.getAnswer().get(2));
-        rb4.setText(question.getAnswer().get(3));
-        int saveAnswer = answers.get(currentPosition);
-        switch (saveAnswer) {
-            case 4:
-                radioGroupAnswer.clearCheck();
-                break;
-            case 0:
-                rb1.setChecked(true);
-                break;
-            case 1:
-                rb2.setChecked(true);
-                break;
-            case 2:
-                rb3.setChecked(true);
-                break;
-            case 3:
-                rb4.setChecked(true);
-                break;
-        }
+
+    @Override
+    public void onAnswerChange(int questionPosition, int answerPosition) {
+        answers.put(questionPosition, answerPosition);
+    }
+
+    @Override
+    public int getSaveAnswer(int questionPosition) {
+        return answers.get(questionPosition);
+    }
+
+    @Override
+    public void onBackPressed() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_confirm_submit);
+        dialog.setCancelable(false);
+
+        ((TextView) dialog.findViewById(R.id.tv_title)).setText(R.string.quit);
+        ((TextView) dialog.findViewById(R.id.tv_mess)).setText(R.string.confirm_quit_test);
+        dialog.findViewById(R.id.btn_yes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.btn_no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

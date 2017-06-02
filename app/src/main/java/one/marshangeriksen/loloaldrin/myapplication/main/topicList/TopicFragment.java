@@ -2,9 +2,12 @@ package one.marshangeriksen.loloaldrin.myapplication.main.topicList;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.List;
 
@@ -91,9 +95,22 @@ public class TopicFragment extends Fragment {
             final Topic topic = topics.get(position);
             holder.tvTopic.setText(topic.getName());
             holder.tvTopic.setSelected(true);
+            int resID = getResources().getIdentifier("i" + (position + 1), "drawable",
+                    getActivity().getPackageName());
             Glide.with(TopicFragment.this)
-                    .load(R.drawable.img_topic)
-                    .into(holder.imgTopic);
+                    .load(resID)
+                    .asBitmap()
+                    .placeholder(R.drawable.img_topic)
+                    .error(R.drawable.img_topic)
+                    .into(new BitmapImageViewTarget(holder.imgTopic) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory
+                                    .create(getActivity().getResources(), resource);
+                            drawable.setCircular(true);
+                            holder.imgTopic.setImageDrawable(drawable);
+                        }
+                    });
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

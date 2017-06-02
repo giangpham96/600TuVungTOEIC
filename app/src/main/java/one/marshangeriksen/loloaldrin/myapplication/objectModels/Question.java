@@ -1,11 +1,12 @@
 package one.marshangeriksen.loloaldrin.myapplication.objectModels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class Question {
+public class Question implements Serializable {
     public static final int VOCAB_QUESTION = 0;
     public static final int MEANING_QUESTION = 1;
     public static final int EXPLANATION_QUESTION = 2;
