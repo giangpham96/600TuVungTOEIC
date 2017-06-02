@@ -1,6 +1,7 @@
 package one.marshangeriksen.loloaldrin.myapplication.main.test;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,9 @@ import one.marshangeriksen.loloaldrin.myapplication.R;
 import one.marshangeriksen.loloaldrin.myapplication.SquareImageView;
 import one.marshangeriksen.loloaldrin.myapplication.main.TopicModel;
 import one.marshangeriksen.loloaldrin.myapplication.objectModels.Topic;
+import one.marshangeriksen.loloaldrin.myapplication.test.TestActivity;
+
+import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPICS;
 
 public class TestFragment extends Fragment {
 
@@ -65,8 +69,14 @@ public class TestFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Integer> topics = adapter.getCheckedItems();
-                Toast.makeText(getActivity(), topics.toString(), Toast.LENGTH_SHORT).show();
+                ArrayList<Integer> topics = adapter.getCheckedItems();
+                if (topics.size() == 0)
+                    Toast.makeText(getActivity(), R.string.choose_one, Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = new Intent(getActivity(), TestActivity.class);
+                    intent.putIntegerArrayListExtra(TOPICS, topics);
+                    startActivity(intent);
+                }
             }
         });
         displaySelectAllButtonText();

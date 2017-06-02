@@ -1,9 +1,5 @@
 package one.marshangeriksen.loloaldrin.myapplication;
 
-/**
- * Created by conme on 30-May-17.
- */
-
 public class Constant {
     public static final String TABLE_WORD = "mytoeic600";
     public static final String KEY_ID = "id";
@@ -16,6 +12,14 @@ public class Constant {
     public static final String KEY_EXAMPLE = "example";
     public static final String KEY_EXAMPLE_TRANS = "example_translate";
     public static final String KEY_FAVORITE = "favourite";
+
+    public static final String TABLE_HIGH_SCORE = "highscore";
+    public static final String KEY_ID_HIGH_SCORE = "_id_highscore";
+    public static final String KEY_NAME = "name_highscore";
+    public static final String KEY_PASS = "passnumber_highscore";
+
+
     public static final String TOPIC_ID_BUNDLE = "topic_id";
     public static final String TOPIC_BUNDLE = "topic";
+    public static final String TOPICS = "topics";
 }

@@ -2,7 +2,6 @@ package one.marshangeriksen.loloaldrin.myapplication;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -83,7 +82,6 @@ public class Utils {
                 }
             }
         }
-        Log.e("file size", files.size() + "");
         return files;
     }
 }

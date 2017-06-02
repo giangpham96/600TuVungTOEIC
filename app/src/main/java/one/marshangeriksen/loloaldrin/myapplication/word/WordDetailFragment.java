@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,7 +111,6 @@ public class WordDetailFragment extends Fragment {
                     public void onScrollChanged() {
                         int scrollY = scrollView.getScrollY(); // For ScrollView
                         // DO SOMETHING WITH THE SCROLL COORDINATES
-                        Log.e("coor", scrollY + "");
                         if (scrollY > 0) {
                             fabStart.hide();
                         } else if (scrollY <= 0) {
