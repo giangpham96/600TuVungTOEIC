@@ -182,12 +182,12 @@ public class MainActivity extends AppCompatActivity {
                 ReminderBroadcastReceiver.REQUEST_CODE,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        long firstAlarm = System.currentTimeMillis();
+        long firstAlarm = System.currentTimeMillis() + 3 * 60 * 60 * 1000;
         AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         alarm.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,
                 firstAlarm,
-                60000L,
+                3 * 60 * 60 * 1000,
                 pIntent);
     }
 }
