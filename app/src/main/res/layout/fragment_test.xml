@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.test.TestFragment">
+    tools:context=".screenMain.test.TestFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcvTopic"

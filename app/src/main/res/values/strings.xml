@@ -36,4 +36,6 @@
     <string name="rank">Rank</string>
     <string name="reset_high_score">Reset high score</string>
     <string name="confirm_reset">Do you really want to delete all score records</string>
+    <string name="notification_title">Favorite word reminder</string>
+    <string name="notification_content">is your favorite word!</string>
 </resources>

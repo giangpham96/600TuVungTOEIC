@@ -1,5 +1,7 @@
 package one.marshangeriksen.loloaldrin.myapplication;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Environment;
 
@@ -8,9 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.ACTIVITY_SERVICE;
+
 
 public class Utils {
-    public static final SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+    public static final SimpleDateFormat sdfDate = new SimpleDateFormat("dd MMM yyyy");
+    public static final SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss:SSS");
     private static final String APP_DIRECTORY = "TOEIC_600_essential_words";
 
     public static File getOutputFile(Context context, int idFolder, String fileName) {
@@ -74,14 +79,27 @@ public class Utils {
     public static List<File> listFilesInFolder(File folder) {
         List<File> files = new ArrayList<>();
         if (folder.exists()) {
-            for (final File fileEntry : folder.listFiles()) {
+            for (File fileEntry : folder.listFiles()) {
                 if (fileEntry.isDirectory()) {
                     files.addAll(listFilesInFolder(fileEntry));
-                } else {
+                } else if (fileEntry.getAbsolutePath().substring(
+                        fileEntry.getAbsolutePath().lastIndexOf("."))
+                        .equals(".ogg")) {
                     files.add(fileEntry);
                 }
             }
         }
         return files;
+    }
+
+    public static boolean isMyServiceRunning(Activity activity) {
+        ActivityManager manager = (ActivityManager) activity.getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("one.marshangeriksen.loloaldrin.myapplication.ReminderIntentService"
+                    .equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

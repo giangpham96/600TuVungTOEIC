@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="one.marshangeriksen.loloaldrin.myapplication.favorite.FavoriteActivity">
+    tools:context="one.marshangeriksen.loloaldrin.myapplication.screenFavorite.FavoriteActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarFav"

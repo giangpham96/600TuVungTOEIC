@@ -2,17 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="one.marshangeriksen.loloaldrin.myapplication.word.WordDetailFragment">
+    tools:context="one.marshangeriksen.loloaldrin.myapplication.screenSpecificWord.WordDetailFragment">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/normal_padding_size">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_padding_size">
 
             <TextView
                 android:id="@+id/tvVocab"

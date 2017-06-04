@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="@dimen/grid_item_padding_size">
 
-    <one.marshangeriksen.loloaldrin.myapplication.SquareImageView
+    <one.marshangeriksen.loloaldrin.myapplication.customViews.SquareImageView
         android:id="@+id/imgTopic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
