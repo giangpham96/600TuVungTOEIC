@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar toolbar;
     @BindView(R.id.fabFav)
     public FloatingActionButton fabFav;
-    public SearchView searchView;
     private DictionaryFragment dictionaryFragment;
 
     @Override
@@ -69,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     fabFav.hide();
                 }
-                if (searchView != null)
-                    searchView.setQuery("", false);
                 invalidateOptionsMenu();
             }
 
@@ -95,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 getMenuInflater().inflate(R.menu.search_menu, menu);
                 final MenuItem mnuSearch = menu.findItem(R.id.mnu_search);
-                searchView = (SearchView) mnuSearch.getActionView();
+                final SearchView searchView = (SearchView) mnuSearch.getActionView();
                 searchView.setQueryHint(getString(R.string.search));
                 searchView.setIconifiedByDefault(false);
                 searchView.setOnQueryTextListener(dictionaryFragment);
+                searchView.setQuery("", false);
+                searchView.clearFocus();
                 break;
             case 1:
                 getMenuInflater().inflate(R.menu.high_score_menu, menu);

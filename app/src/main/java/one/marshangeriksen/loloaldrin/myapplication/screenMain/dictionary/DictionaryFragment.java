@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 import one.marshangeriksen.loloaldrin.myapplication.R;
 import one.marshangeriksen.loloaldrin.myapplication.adapters.WordAdapter;
 import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
-import one.marshangeriksen.loloaldrin.myapplication.screenMain.MainActivity;
 
 
 public class DictionaryFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -83,16 +82,6 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        searchView = ((MainActivity) getActivity()).searchView;
-        if (searchView != null) {
-            searchView.setQuery("", false);
-            searchView.clearFocus();
-        }
     }
 
     @Override

@@ -78,7 +78,7 @@ public class Utils {
 
     public static List<File> listFilesInFolder(File folder) {
         List<File> files = new ArrayList<>();
-        if (folder.exists()) {
+        if (folder.listFiles() != null) {
             for (File fileEntry : folder.listFiles()) {
                 if (fileEntry.isDirectory()) {
                     files.addAll(listFilesInFolder(fileEntry));
