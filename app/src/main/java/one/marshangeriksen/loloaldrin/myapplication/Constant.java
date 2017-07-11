@@ -19,6 +19,7 @@ public class Constant {
     public static final String KEY_PASS = "passnumber_highscore";
 
 
+    public static final String TOPIC_RES_ID_BUNDLE = "topic_res_id";
     public static final String TOPIC_ID_BUNDLE = "topic_id";
     public static final String TOPIC_BUNDLE = "topic";
     public static final String TOPICS = "topics";

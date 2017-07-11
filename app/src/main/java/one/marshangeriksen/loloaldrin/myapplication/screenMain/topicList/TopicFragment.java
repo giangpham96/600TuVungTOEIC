@@ -30,6 +30,7 @@ import one.marshangeriksen.loloaldrin.myapplication.screenSpecificTopic.TopicAct
 
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_BUNDLE;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_ID_BUNDLE;
+import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_RES_ID_BUNDLE;
 
 
 public class TopicFragment extends Fragment {
@@ -95,7 +96,7 @@ public class TopicFragment extends Fragment {
             final Topic topic = topics.get(position);
             holder.tvTopic.setText(topic.getName());
             holder.tvTopic.setSelected(true);
-            int resID = getResources().getIdentifier("i" + (position + 1), "drawable",
+            final int resID = getResources().getIdentifier("i" + (position + 1), "drawable",
                     getActivity().getPackageName());
             Glide.with(TopicFragment.this)
                     .load(resID)
@@ -115,6 +116,7 @@ public class TopicFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(TopicFragment.this.getActivity(), TopicActivity.class);
+                    intent.putExtra(TOPIC_RES_ID_BUNDLE, resID);
                     intent.putExtra(TOPIC_ID_BUNDLE,holder.getAdapterPosition()+1);
                     intent.putExtra(TOPIC_BUNDLE,topic);
                     startActivity(intent);

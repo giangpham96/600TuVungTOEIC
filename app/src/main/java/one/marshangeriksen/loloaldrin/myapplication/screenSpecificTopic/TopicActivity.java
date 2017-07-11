@@ -27,6 +27,7 @@ import one.marshangeriksen.loloaldrin.myapplication.objectModels.Word;
 
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_BUNDLE;
 import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_ID_BUNDLE;
+import static one.marshangeriksen.loloaldrin.myapplication.Constant.TOPIC_RES_ID_BUNDLE;
 
 public class TopicActivity extends AppCompatActivity {
     @BindView(R.id.toolbarTopic)
@@ -54,9 +55,10 @@ public class TopicActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         Topic topic = (Topic) getIntent().getSerializableExtra(TOPIC_BUNDLE);
+        int resId = getIntent().getIntExtra(TOPIC_RES_ID_BUNDLE, 0);
         tvTopic.setText(topic.getName().split("[.] ")[1]);
         Glide.with(this)
-                .load(R.drawable.img_topic)
+                .load(resId)
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
