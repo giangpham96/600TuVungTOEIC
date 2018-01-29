@@ -58,8 +58,13 @@ public class WordActivity extends AppCompatActivity implements WordDetailFragmen
     };
 
     private void stopRecording() {
-        mediaRecorder.stop();
-        mediaRecorder.release();
+        try {
+            mediaRecorder.stop();
+        } catch (RuntimeException ignored) {
+
+        } finally {
+            mediaRecorder.release();
+        }
         recordFragment.onResume();
     }
 
